@@ -1,41 +1,51 @@
 /* ===================================================================
-   🎨 CSS GLOBAL STYLES & VARIABLE THEME (FOR IMORIA LEARNING)
+   🎨 LIGHT THEME DEFAULT STYLES (Clean Reading Experience)
 =================================================================== */
 :root {
-  --bg-main: #0B0F19;         /* Premium Deep Space Dark Theme */
-  --card-bg: #111827;        /* Sleek card container background */
-  --border: rgba(255, 255, 255, 0.08);
-  --text-main: #F3F4F6;
+  --bg-main: #F8FAFC;         
+  --card-bg: #FFFFFF;         
+  --border: #E2E8F0;
+  --text-main: #0F172A;       
+  --text-muted: #64748B;
+  --accent-purple: #6366F1;   
+  --accent-glow: #4F46E5;
+}
+
+/* 🌓 DARK THEME RULES (Triggered strictly by user click toggle) */
+html.dark {
+  --bg-main: #0F172A;
+  --card-bg: #1E293B;
+  --border: #334155;
+  --text-main: #F8FAFC;
   --text-muted: #94A3B8;
-  --accent-purple: #7C3AED;   /* Core Branding Purple */
-  --accent-glow: #a78bfa;
+  --accent-purple: #818CF8;
+  --accent-glow: #A5B4FC;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
-  line-height: 1.7;
-  padding-bottom: 60px;
+  line-height: 1.6;
 }
 
 /* ===================================================================
-   🧭 NAVIGATION BAR STYLES
+   🧭 NAVBAR & ULTRA RESPONSIVE LAYOUT
 =================================================================== */
 .navbar {
-  background: rgba(17, 24, 39, 0.8);
-  backdrop-filter: blur(12px);
+  background: var(--card-bg);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  z-index: 100;
-  padding: 0.8rem 1.5rem;
+  z-index: 1000;
+  padding: 1rem;
 }
 
 .nav-inner {
@@ -46,142 +56,43 @@ body {
   align-items: center;
 }
 
-.logo-text {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-  color: #fff;
+.logo-text { font-weight: 800; font-size: 1.25rem; }
+.logo-accent { color: var(--accent-purple); }
+
+.nav-actions { display: flex; gap: 1rem; align-items: center; }
+
+.theme-toggle-btn {
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-main);
 }
 
-.logo-accent {
-  color: var(--accent-glow);
-}
+.back-btn { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
 
-.logo-icon {
-  font-size: 1.4rem;
-}
-
-.back-btn {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.back-btn:hover {
-  color: #fff;
-}
-
-/* ===================================================================
-   🚀 HERO SECTION & STUDY MODE SELECTOR
-=================================================================== */
+/* 🚀 HERO SECTION WITHOUT CONFUSING MODES */
 .chapter-hero {
-  background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 50%),
-              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent 40%);
-  padding: 3.5rem 1.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 3.5rem 1rem 2.5rem 1rem;
   text-align: center;
-}
-
-.chapter-hero-inner {
-  max-width: 850px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.chapter-label {
-  color: var(--accent-glow);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.7rem;
-}
+.chapter-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-purple); font-weight: 700; margin-bottom: 0.5rem; display: block; }
+.chapter-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+.chapter-desc { color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 1rem; }
 
-.chapter-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 2.2rem;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
-.chapter-desc {
-  color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 2rem;
-}
-
-.mode-selector {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.2rem;
-  display: inline-block;
-  width: 100%;
-  max-width: 650px;
-}
-
-.mode-label {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-}
-
-.mode-buttons {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.mode-btn {
-  flex: 1;
-  padding: 0.7rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-}
-
-.mode-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-}
-
-/* Study Mode Active Button Colors */
-.weak-btn.active-mode {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: #10B981;
-  color: #6EE7B7;
-}
-
-.avg-btn.active-mode {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: #3B82F6;
-  color: #93C5FD;
-}
-
-.top-btn.active-mode {
-  background: rgba(124, 58, 237, 0.18);
-  border-color: var(--accent-purple);
-  color: #c4b5fd;
-}
-
-/* ===================================================================
-   🗂️ TAB SYSTEM BAR & NAVIGATION INTERACTIVE LAYOUT
-=================================================================== */
+/* 🗂️ TAB NAV SYSTEM WITH SWIPE ON MOBILE */
 .tab-bar {
-  background: #111827;
+  background: var(--card-bg);
   border-bottom: 1px solid var(--border);
   position: sticky;
-  top: 61px;
-  z-index: 90;
+  top: 65px;
+  z-index: 900;
 }
 
 .tabs-inner {
@@ -189,271 +100,97 @@ body {
   margin: 0 auto;
   display: flex;
   overflow-x: auto;
-  scrollbar-width: none; /* Hide standard scrollbar for layout cleanliness */
+  scrollbar-width: none;
 }
-
-.tabs-inner::-webkit-scrollbar {
-  display: none; /* Webkit browser compatibility */
-}
+.tabs-inner::-webkit-scrollbar { display: none; }
 
 .tab {
   padding: 1rem 1.5rem;
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 0.95rem;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
   white-space: nowrap;
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.tab:hover {
-  color: #fff;
 }
 
 .tab.active-tab {
-  color: #fff;
-}
-
-.tab.active-tab::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: var(--accent-purple);
+  color: var(--accent-purple);
+  border-bottom: 3px solid var(--accent-purple);
 }
 
 /* ===================================================================
-   📦 MAIN CONTENT AREA & TAB MECHANISM CONTROLS
+   📦 APP CONTENT ENGINE & CARDS
 =================================================================== */
-.chapter-main {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-}
+.chapter-main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
+.tab-content { display: none; }
+.tab-content.active-content { display: block; }
 
-/* Tab Management: Hide unselected content sections naturally */
-.tab-content {
-  display: none;
-}
-
-.tab-content.active-content {
-  display: block;
-}
-
-/* Mode Management: Control Weak, Average, Topper rendering dynamically */
-.mode-content {
-  display: none;
-}
-
-/* Set dynamic visibility using active-mode configuration defaults */
-body.mode-weak #concepts-weak,
-body.mode-average #concepts-average,
-body.mode-topper #concepts-topper {
-  display: block;
-}
-
-/* Fallback fallback if JS state fails - standard styling handles initialization */
-.mode-content:first-child {
-  display: block;
-}
-
-/* ===================================================================
-   💡 GENERAL CONTENT BLOCKS, FLASHCARDS, MCQS & DESIGN ASSETS
-=================================================================== */
-.concept-block {
+.concept-block, .mcq-card, .summary-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 1.8rem;
-}
-
-.mode-banner {
-  padding: 0.8rem 1.2rem;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-}
-
-.weak-banner { background: rgba(16, 185, 129, 0.1); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.2); }
-.avg-banner { background: rgba(59, 130, 246, 0.1); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.2); }
-.top-banner { background: rgba(124, 58, 237, 0.1); color: #c4b5fd; border: 1px solid rgba(124, 58, 237, 0.2); }
-
-/* Custom Headings & Elements compiled via dynamic inline injections */
-h3 {
-  font-family: 'Syne', sans-serif;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
-/* ===================================================================
-   🃏 INTERACTIVE FLASHCARDS & REVEAL SYSTEM STYLES
-=================================================================== */
-.flashcards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.flashcard {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
   padding: 1.5rem;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.01);
 }
 
-.fc-question {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 1rem;
+h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-purple); }
+h3 { margin: 1.25rem 0 0.5rem 0; font-size: 1.15rem; }
+p { color: var(--text-main); margin-bottom: 1rem; }
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+li { margin-bottom: 0.5rem; }
+
+.note-box {
+  background: rgba(99, 102, 241, 0.06);
+  border-left: 4px solid var(--accent-purple);
+  padding: 1rem;
+  border-radius: 0 12px 12px 0;
+  margin: 1rem 0;
 }
 
-.fc-answer {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  padding: 0.8rem;
-  font-size: 0.9rem;
-  color: #6EE7B7;
-  display: none; /* Revealed seamlessly on user prompt */
-  margin-top: auto;
-  border-left: 3px solid #10B981;
-}
+/* 🗺️ FLOWCHARTS & DATA TABLES */
+.flowchart-container { display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0; }
+.flow-step { background: var(--accent-purple); color: white; padding: 0.6rem 2rem; border-radius: 30px; font-weight: 700; width: 180px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.flow-arrow { margin: 0.3rem 0; font-weight: bold; color: var(--text-muted); }
 
-.reveal-btn {
-  background: rgba(124, 58, 237, 0.15);
-  color: var(--accent-glow);
-  border: 1px solid rgba(124, 58, 237, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  align-self: flex-start;
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 1rem;
 }
-
-/* ===================================================================
-   ✅ EXAM INTERACTIVE MCQS COMPONENT RENDERING
-=================================================================== */
-.mcq-card {
-  background: var(--card-bg);
+.data-table th, .data-table td {
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.mcq-question {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 1.2rem;
-}
-
-.mcq-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.option-btn {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.8rem 1.2rem;
+  padding: 0.75rem;
   text-align: left;
-  color: var(--text-main);
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
 }
+.data-table th { background: var(--bg-main); font-weight: 700; }
 
-.option-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
-}
+/* 🃏 FLASHCARDS */
+.flashcards-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.flashcard { background: var(--card-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 14px; }
+.fc-question { font-weight: 700; }
+.fc-answer { background: var(--bg-main); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--accent-purple); display: none; }
+.reveal-btn { background: none; border: 1px solid var(--accent-purple); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 8px; margin-top: 1rem; cursor: pointer; font-weight: 600; }
 
-.mcq-explanation {
-  background: rgba(245, 158, 11, 0.06);
-  border-left: 3px solid #F59E0B;
-  color: #FCD34D;
-  padding: 0.8rem 1.2rem;
-  border-radius: 0 8px 8px 0;
-  font-size: 0.88rem;
-  margin-top: 1rem;
-  display: none; /* Toggled gracefully upon processing option submission */
-}
+/* ✅ INTERACTIVE QUIZZES */
+.mcq-options { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+.option-btn { background: var(--bg-main); border: 1px solid var(--border); padding: 0.85rem; border-radius: 10px; text-align: left; color: var(--text-main); cursor: pointer; font-weight: 500; }
+.mcq-explanation { background: #FEF3C7; color: #92400E; padding: 1rem; border-radius: 10px; margin-top: 1rem; display: none; }
 
-/* ===================================================================
-   📝 SUMMARY CARD COMPONENT EXTRAS
-=================================================================== */
-.summary-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-}
+.summary-list { list-style: none; padding-left: 0; }
+.summary-list li::before { content: "⚡ "; color: var(--accent-purple); font-weight: bold; }
 
-.summary-card h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.2rem;
-  color: #fff;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-.summary-list {
-  list-style: none;
-}
-
-.summary-list li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-}
-
-.summary-list li::before {
-  content: "⚡";
-  position: absolute;
-  left: 0;
-  color: var(--accent-glow);
-}
+/* 🏁 FOOTER */
+.footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid var(--border); margin-top: 4rem; color: var(--text-muted); }
+.heart { color: #EF4444; }
 
 /* ===================================================================
-   🏁 BOTTOM FOOTER DESIGN STRUCTURE
+   🖥️ LAPTOP RESPONSIVENESS ADJUSTMENTS
 =================================================================== */
-.footer {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  border-top: 1px solid var(--border);
-  background: #090D16;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-}
-
-.footer p {
-  margin-bottom: 0.4rem;
-}
-
-.heart {
-  color: #EF4444;
+@media (min-width: 768px) {
+  .chapter-title { font-size: 3rem; }
+  .flashcards-grid { grid-template-columns: repeat(2, 1fr); }
+  .concept-block, .mcq-card, .summary-card { padding: 2.5rem; }
 }
