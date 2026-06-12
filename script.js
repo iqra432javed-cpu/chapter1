@@ -1,84 +1,78 @@
-// ===================================================================
-// 🌓 THEME CONTROLLER ENGINE (Light/Dark Management)
-// ===================================================================
-function toggleTheme() {
-    const htmlElement = document.documentElement;
-    if (htmlElement.classList.contains('dark')) {
-        htmlElement.classList.remove('dark');
-        htmlElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
-    } else {
-        htmlElement.classList.remove('light');
-        htmlElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    }
-}
-
-// Restore saved settings on initial page layout render cycle
-if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.classList.add('dark');
-} else {
-    document.documentElement.classList.remove('dark');
-}
-
-// ===================================================================
-// 🗂️ TAB MANAGEMENT TRANSITIONS
-// ===================================================================
-function switchTab(tabId, event) {
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(item => item.classList.remove('active-content'));
-    
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => tab.classList.remove('active-tab'));
-    
-    document.getElementById('tab-' + tabId).classList.add('active-content');
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active-tab');
-    }
-}
-
-// ===================================================================
-// 🃏 FLASHCARDS INTERACTIVE REVEAL
-// ===================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    const flashcards = document.querySelectorAll('.flashcard');
-    flashcards.forEach(card => {
-        const btn = card.querySelector('.reveal-btn');
-        const ans = card.querySelector('.fc-answer');
-        
-        if (btn && ans) {
-            btn.addEventListener('click', () => {
-                if (ans.style.display === 'block') {
-                    ans.style.display = 'none';
-                    btn.textContent = '🃏 Reveal Answer';
+    // ==========================================
+    // 1. TAB SWITCHING LOGIC
+    // ==========================================
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active-tab'));
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active-content'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active-tab');
+            
+            // Show corresponding content based on data-tab attribute
+            const targetTab = tab.getAttribute('data-tab');
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active-content');
+            }
+        });
+    });
+
+    // ==========================================
+    // 2. STUDY MODE FILTERING (Weak, Avg, Topper)
+    // ==========================================
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const modeContents = document.querySelectorAll('.mode-content');
+
+    modeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active state from all mode buttons
+            modeButtons.forEach(btn => btn.classList.remove('active-mode'));
+            
+            // Add active state to clicked button
+            button.classList.add('active-mode');
+
+            // Get selected mode (weak, average, or topper)
+            const selectedMode = button.getAttribute('data-mode');
+
+            // Show/Hide relevant blocks
+            modeContents.forEach(content => {
+                if (content.classList.contains(`${selectedMode}-mode`)) {
+                    content.classList.remove('hidden');
+                    // Optional fluid entry animation trigger
+                    content.style.animation = 'fadeIn 0.4s ease';
                 } else {
-                    ans.style.display = 'block';
-                    btn.textContent = '🙈 Hide Answer';
+                    content.classList.add('hidden');
                 }
             });
-        }
+        });
+    });
+
+    // ==========================================
+    // 3. FLASHCARD FLIP INTERACTION
+    // ==========================================
+    const flashcards = document.querySelectorAll('.flashcard');
+
+    flashcards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Toggle flipped class on click
+            card.classList.toggle('flipped');
+        });
     });
 });
 
-// ===================================================================
-// 📝 MCQ INTERACTIVE CORRECTION VALIDATION
-// ===================================================================
-function checkAnswer(buttonElement, isCorrect) {
-    const parentCard = buttonElement.closest('.mcq-card');
-    const options = parentCard.querySelectorAll('.option-btn');
-    const explanation = parentCard.querySelector('.mcq-explanation');
-    
-    options.forEach(opt => opt.style.pointerEvents = 'none');
-    
-    if (isCorrect) {
-        buttonElement.style.backgroundColor = '#10B981';
-        buttonElement.style.color = '#FFFFFF';
-        buttonElement.style.borderColor = '#10B981';
-    } else {
-        buttonElement.style.backgroundColor = '#EF4444';
-        buttonElement.style.color = '#FFFFFF';
-        buttonElement.style.borderColor = '#EF4444';
+// Optional CSS Animation Injection for smooth mode transitions
+const style = document.createElement('style');
+style.innerHTML = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
-    explanation.style.display = 'block';
-}
+`;
+document.head.appendChild(style);
